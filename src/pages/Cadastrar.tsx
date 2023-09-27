@@ -11,11 +11,8 @@ interface IFormInputs {
 
 
 const onSubmit: SubmitHandler<IFormInputs> =( data) =>{
-  localStorage.setItem("nome",JSON.stringify(data.Nome));
   localStorage.setItem("email",JSON.stringify(data.Email));
-  localStorage.setItem("CPF",JSON.stringify(data.CPF));
   localStorage.setItem("senha",JSON.stringify(data.Senha));
-  localStorage.setItem("senhaconfirmada",JSON.stringify(data.ConfirmarSenha));
 };
 export const Cadastro = () => {
   const { register, formState: { errors }, handleSubmit,watch } = useForm<IFormInputs>();
