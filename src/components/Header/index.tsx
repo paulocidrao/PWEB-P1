@@ -1,18 +1,46 @@
-import { UserIcon } from "../../components/utils/Icons/UserIcons/User"
+import { HeaderContainer, SearchInput, ActionButton, HeaderNavigation } from "./styles";
 
-export const Header = () => {
-    const handleSubmit = (e: any) => {
-        e.preventDefault();
-    }
+import logoControlImage from '../../assets/control.png';
+import { FiUser, FiShoppingCart } from 'react-icons/fi'
+import { Link } from "react-router-dom";
 
+export default function Header() {
     return (
-        <header className="flex justify-around align-center  bg-blue-400  p-3 ">
-            <h1 className="text-white font-bold  text-3xl text-center">Games X</h1>
-            <form action="sbmit" onSubmit={handleSubmit} className="flex aling-center">
-                <input type="text" className="text-md font-bold mb-2 rounded-xl p-3" placeholder="Busque aqui" />
-                {/* <button className="p-3"><SearchIcon/></button> */}
-            </form>
-            <button className="p-3"> <UserIcon /> </button>
-        </header>
+        <HeaderContainer>
+            <Link to="/" className="logoDiv">
+                <img src={logoControlImage} alt="Logo" />
+                <h2>Games X</h2>
+            </Link>
+
+            <HeaderNavigation>
+                <Link to="">
+                    Categorias
+                </Link>
+                <Link to="">
+                    Novidades
+                </Link>
+                <Link to="">
+                    Suporte
+                </Link>
+            </HeaderNavigation>
+
+            <div className="headerActions">
+                <SearchInput placeholder="Buscar..." />
+
+                <ActionButton>
+                    <Link to={"/login"}>
+                        <FiUser size={24} />
+                        <span>Login/Cadastro</span>
+                    </Link>
+                </ActionButton>
+
+                <ActionButton>
+                    <Link to={"/cart"}>
+                        <FiShoppingCart size={24} />
+                        <span>Carrinho</span>
+                    </Link>
+                </ActionButton>
+            </div>
+        </HeaderContainer>
     )
 }

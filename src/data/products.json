@@ -1,0 +1,36 @@
+{
+    "products": [
+        {
+            "id": 1,
+            "nome": "PlayStation 5",
+            "descricao": "Console de última geração da Sony",
+            "preco": 3499.99,
+            "estoque": 15,
+            "imageURL": "PS5.jpg"
+        },
+        {
+            "id": 2,
+            "nome": "Xbox Series X",
+            "descricao": "Console de alta potência da Microsoft",
+            "preco": 3549.99,
+            "estoque": 10,
+            "imageURL": "Xbox-x.jpg"
+        },
+        {
+            "id": 3,
+            "nome": "Nintendo Switch",
+            "descricao": "Console híbrido da Nintendo",
+            "preco": 2299.99,
+            "estoque": 20,
+            "imageURL": "Switch.jpg"
+        },
+        {
+            "id": 4,
+            "nome": "Xbox Series S",
+            "descricao": "Console de alta potência da Microsoft",
+            "preco": 2299.99,
+            "estoque": 20,
+            "imageURL": "Xbox-s.jpg"
+        }
+    ]
+}
