@@ -1,31 +1,19 @@
 import styled from "styled-components";
 
-export const LoginContainer = styled.div`
+export const FormPageContainer = styled.div`
     display: flex; 
     width: 100%;
     height: 100vh;
-
-    & > div {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 2rem;
-    }
 `
 
-export const Banner = styled.div`
-    width: 100%;
-    background-color: var(--gray-300);
-
-    img {
-        width: 20rem
-    }
-`;
-
-export const LoginFormContainer = styled.div`
+export const FormContainer = styled.div`
     width: 100%;
     background-color: var(--background);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
 
     p {
         color: var(--gray-300);
@@ -35,7 +23,7 @@ export const LoginFormContainer = styled.div`
     form {
         display: flex;
         flex-direction: column;
-        gap: 1.5rem;
+        gap: 1rem;
         max-width: 30rem;
         width: 100%;
 
@@ -67,6 +55,14 @@ export const LoginFormContainer = styled.div`
             
             a {
                 text-decoration: underline;
+            }
+
+            a.noUnderline {
+                    text-decoration: none;
+            }
+
+            &.error {
+                color: var(--danger-color);
             }
         }
     }

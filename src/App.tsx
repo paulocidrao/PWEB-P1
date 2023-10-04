@@ -5,14 +5,16 @@ import GlobalStyles from './styles/global'
 import Header from "./components/Header"
 import SignUp from "./pages/SignUp"
 import ProductDetails from "./pages/ProductDetails"
+import ResetPassword from "./pages/ResetPassword"
 
 // Funcao para nao renderizar o header nestas rotas
 function HeaderWithCondition() {
   const location = useLocation();
-  const isLoginPage = location.pathname === "/login";
-  const isSignUpPage = location.pathname === "/signup";
+  const isLoginPage = location.pathname === "/signIn";
+  const isSignUpPage = location.pathname === "/signUp";
+  const isResetPasswordPage = location.pathname === "/resetPassword";
 
-  return !isLoginPage && !isSignUpPage ? <Header /> : null;
+  return !isLoginPage && !isSignUpPage && !isResetPasswordPage ? <Header /> : null;
 }
 
 function App() {
@@ -24,8 +26,9 @@ function App() {
         <HeaderWithCondition />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
+          <Route path="/signIn" element={<Login />} />
+          <Route path="/signUp" element={<SignUp />} />
+          <Route path="/resetPassword" element={<ResetPassword />} />
           <Route path={`/productDetails/:productId`} element={<ProductDetails />} />
         </Routes>
       </BrowserRouter>

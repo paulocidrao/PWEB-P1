@@ -26,7 +26,7 @@ export const ProductImageContainer = styled.div`
        justify-content: center;
 
        img {
-            height: 28rem;
+            height: 27rem;
        }
     }
 

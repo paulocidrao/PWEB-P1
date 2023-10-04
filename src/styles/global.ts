@@ -26,6 +26,7 @@ export default createGlobalStyle`
         --gray-200: #ccc; 
         --gray-300: #666;
         --banner-bg: #F4F1ED;
+        --danger-color: #ef233c;
 
         /* Tamanhos de Fonte */
         --title-banner: 36px;

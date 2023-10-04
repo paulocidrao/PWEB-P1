@@ -1,6 +1,6 @@
 import Form from "../../components/Form";
 
-export default function SignUp() {
+export default function ResetPassword() {
     return (
         <Form />
     )

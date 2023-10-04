@@ -41,20 +41,16 @@ export const SearchInput = styled.input.attrs({
 `
 
 export const ActionButton = styled.button`
-    border: 1px solid var(--gray-200);
     border-radius: 999px;
+    border: 1px solid var(--gray-200);
     background: none;
-    padding: 0.5rem 1rem;
     cursor: pointer;
     transition: 0.2s;
+    padding: 0.5rem 1rem;
 
-    a {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        text-decoration: none;
-        color: var(--text-color);
-    }
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 
     &:hover{
         background-color: var(--gray-100);

@@ -27,19 +27,19 @@ export default function Header() {
             <div className="headerActions">
                 <SearchInput placeholder="Buscar..." />
 
-                <ActionButton>
-                    <Link to={"/login"}>
+                <Link to={"/signIn"}>
+                    <ActionButton>
                         <FiUser size={24} />
                         <span>Login/Cadastro</span>
-                    </Link>
-                </ActionButton>
+                    </ActionButton>
+                </Link>
 
-                <ActionButton>
-                    <Link to={"/cart"}>
+                <Link to={"/cart"}>
+                    <ActionButton>
                         <FiShoppingCart size={24} />
                         <span>Carrinho</span>
-                    </Link>
-                </ActionButton>
+                    </ActionButton>
+                </Link>
             </div>
         </HeaderContainer>
     )
