@@ -34,21 +34,28 @@ export const ProductImageContainer = styled.div`
         margin-top: 1rem;
         display: flex;
         flex-direction: row;
-        gap: 1rem;
+        justify-content: space-between;
         width: 100%;
         height: 8rem;
 
         div {
             border: 1px solid var(--gray-200);
             border-radius: 6px;
+            padding: 0.1rem;
             width: 8rem;
             max-height: 100%;
             background-color: var(--gray-100);
             display: flex;
+            align-items: center;
             justify-content: center;
 
             img {
-                height: 100%;
+                border-radius: 6px;
+                width: 100%;
+            }
+
+            &:hover {
+                border: 1px solid var(--gray-300);
             }
         }
     }

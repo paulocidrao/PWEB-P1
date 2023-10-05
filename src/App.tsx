@@ -6,6 +6,8 @@ import Header from "./components/Header"
 import SignUp from "./pages/SignUp"
 import ProductDetails from "./pages/ProductDetails"
 import ResetPassword from "./pages/ResetPassword"
+import UserCart from "./pages/UserCart"
+import { CartContextProvider } from "./contexts/CartContext"
 
 // Funcao para nao renderizar o header nestas rotas
 function HeaderWithCondition() {
@@ -23,14 +25,17 @@ function App() {
       <GlobalStyles />
       <BrowserRouter>
 
-        <HeaderWithCondition />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/signIn" element={<Login />} />
-          <Route path="/signUp" element={<SignUp />} />
-          <Route path="/resetPassword" element={<ResetPassword />} />
-          <Route path={`/productDetails/:productId`} element={<ProductDetails />} />
-        </Routes>
+        <CartContextProvider>
+          <HeaderWithCondition />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/signIn" element={<Login />} />
+            <Route path="/signUp" element={<SignUp />} />
+            <Route path="/resetPassword" element={<ResetPassword />} />
+            <Route path={`/productDetails/:productId`} element={<ProductDetails />} />
+            <Route path={`/userCart/`} element={<UserCart />} />
+          </Routes>
+        </CartContextProvider >
       </BrowserRouter>
     </>
   )

@@ -31,6 +31,38 @@
             "preco": 2299.99,
             "estoque": 20,
             "imageURL": "Xbox-s.jpg"
+        },
+        {
+            "id": 5,
+            "nome": "Controle Sem Fio Xbox",
+            "descricao": "Controle sem fio para o console Xbox",
+            "preco": 129.99,
+            "estoque": 30,
+            "imageURL": "Xbox-control.jpg"
+        },
+        {
+            "id": 6,
+            "nome": "Jogo The Last of Us Part II",
+            "descricao": "Jogo de aventura e ação para PlayStation 5",
+            "preco": 69.99,
+            "estoque": 25,
+            "imageURL": "TLOU2.jpg"
+        },
+        {
+            "id": 7,
+            "nome": "Headset Gamer HyperX Cloud II",
+            "descricao": "Headset com som surround para uma experiência imersiva",
+            "preco": 149.99,
+            "estoque": 15,
+            "imageURL": "HyperX.jpg"
+        },
+        {
+            "id": 8,
+            "nome": "Mouse Gamer Logitech G Pro X",
+            "descricao": "Mouse de alta precisão para jogos",
+            "preco": 79.99,
+            "estoque": 20,
+            "imageURL": "Logitech.jpg"
         }
     ]
 }

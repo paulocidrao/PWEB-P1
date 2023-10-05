@@ -11,7 +11,7 @@ export default createGlobalStyle`
         background: var(--primary);
         font-family: 'Poppins', sans-serif;
         width: 100%;
-        max-width: 80rem;
+        max-width: 85rem;
         margin-right: auto;
         margin-left: auto;
     }
@@ -26,6 +26,7 @@ export default createGlobalStyle`
         --gray-200: #ccc; 
         --gray-300: #666;
         --banner-bg: #F4F1ED;
+        --success-color: #55a630;
         --danger-color: #ef233c;
 
         /* Tamanhos de Fonte */

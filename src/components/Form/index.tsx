@@ -85,7 +85,7 @@ function SignInForm({ onSubmit }: SignInFormProps) {
                     </Link>
                 </span>
 
-                <Button text="Sign in" />
+                <Button text="Sign in" border="corner" />
                 <span>Não tem uma conta? <Link to="/signUp">Clique aqui</Link>.</span>
             </form>
         </FormContainer>
@@ -159,7 +159,7 @@ function SignUpForm({ onSubmit }: SignInFormProps) {
                     {errors.confirmPassword && <span className="error">Este campo é obrigatório</span>}
                 </div>
 
-                <Button text="Criar conta" />
+                <Button text="Criar conta" border="corner" />
                 <span>Já tem uma conta? <Link to="/signIn">Entrar</Link>.</span>
             </form>
         </FormContainer>
@@ -175,7 +175,7 @@ function ResetPasswordForm({ onSubmit }: SignInFormProps) {
 
     return (
         <FormContainer>
-            <h1>Reset password</h1>
+            <h1>Resetar senha</h1>
             <p>Informe seu email para resetar a senha.</p>
 
             <form onSubmit={handleSubmit((data) => onSubmit({ data, destiny: '/signIn' }))}>
@@ -195,7 +195,7 @@ function ResetPasswordForm({ onSubmit }: SignInFormProps) {
                     {errors.email && <span className="error">{errors.email.message}</span>}
                 </div>
 
-                <Button text="Confirmar" />
+                <Button text="Confirmar" border="corner" />
             </form>
         </FormContainer>
     )

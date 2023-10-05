@@ -11,6 +11,6 @@ export const ProductsFeed = styled.main`
     width: 100%;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    column-gap: 2.5rem;
-    row-gap: 2.5rem;
+    column-gap: 1.5rem;
+    row-gap: 1.5rem;
 `

@@ -34,7 +34,7 @@ export default function Header() {
                     </ActionButton>
                 </Link>
 
-                <Link to={"/cart"}>
+                <Link to={"/userCart"}>
                     <ActionButton>
                         <FiShoppingCart size={24} />
                         <span>Carrinho</span>

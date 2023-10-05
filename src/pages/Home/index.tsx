@@ -13,11 +13,13 @@ export default function Home() {
                 {productsArray.map((product) => (
                     <ProductCard
                         key={product.id}
-                        id={product.id}
-                        title={product.nome}
-                        description={product.descricao}
-                        price={product.preco}
-                        imageUrl={product.imageURL}
+                        product={{
+                            id: product.id,
+                            title: product.nome,
+                            description: product.descricao,
+                            price: product.preco,
+                            imageUrl: product.imageURL,
+                        }}
                     />
                 ))}
             </ProductsFeed>
