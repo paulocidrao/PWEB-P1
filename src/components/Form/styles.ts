@@ -4,6 +4,7 @@ export const FormPageContainer = styled.div`
     display: flex; 
     width: 100%;
     height: 100vh;
+    padding: 0.5rem;
 `
 
 export const FormContainer = styled.div`

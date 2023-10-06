@@ -1,14 +1,21 @@
+import { useCart } from "../../hooks/useCart";
+import Button from "../Button";
 import { ProductCartContainer, ProductCartDetails, ProductCartInfo } from "./styles";
 
+import { FaTrash } from 'react-icons/fa'
+
 interface ProductCartCardProps {
+    productID: number
     imageURL: string;
     title: string;
     description: string;
-    price: number;
+    price: string;
     quantity: number;
 }
 
-export default function ProductCartCard({ imageURL, title, description, price, quantity }: ProductCartCardProps) {
+export default function ProductCartCard({ productID, imageURL, title, description, price, quantity }: ProductCartCardProps) {
+    const { removeCartItem } = useCart();
+
     return (
         <ProductCartContainer>
             <ProductCartInfo>
@@ -23,8 +30,17 @@ export default function ProductCartCard({ imageURL, title, description, price, q
             </ProductCartInfo>
 
             <ProductCartDetails>
-                <h3>{price}</h3>
-                <span>Quantidade: {quantity}</span>
+                <div>
+                    <h3>{price}</h3>
+                    <span>Quantidade: {quantity}</span>
+                </div>
+
+                <Button
+                    background="none"
+                    border="corner"
+                    icon={<FaTrash size={20} />}
+                    handleFunction={() => removeCartItem(productID)}
+                />
             </ProductCartDetails>
         </ProductCartContainer>
     )

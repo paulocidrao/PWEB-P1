@@ -29,6 +29,7 @@ export const CardContainer = styled.div`
         img {
             border-radius: 6px; 
             max-height: 15rem;
+            height: 100%;
         }
     }
 

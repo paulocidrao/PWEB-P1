@@ -15,10 +15,10 @@ export default function Home() {
                         key={product.id}
                         product={{
                             id: product.id,
-                            title: product.nome,
-                            description: product.descricao,
-                            price: product.preco,
-                            imageUrl: product.imageURL,
+                            title: product.title,
+                            description: product.description,
+                            price: product.price,
+                            imageUrl: product.imageUrl,
                         }}
                     />
                 ))}

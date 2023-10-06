@@ -3,14 +3,28 @@ import Button from "../../components/Button";
 import ProductCartCard from "../../components/ProductCartCard";
 import { useCart } from "../../hooks/useCart";
 import { CartContainer, PaymentInformation, ProductList } from "./styles";
+import { formatCurrency } from "../../utils/formatCurrency";
+import { useState } from "react";
 
 export default function UserCart() {
+    const [selectedMethod, setSelectedMethod] = useState<number | null>(null);
+
     const { cartItems, cleanCart } = useCart();
     console.log(cartItems)
 
     const totalPrice = cartItems.reduce((acc, value) => {
-        return acc + value.price;
+        return acc + value.price * value.quantity;
     }, 0)
+
+    const paymentMethodsList = [
+        { id: 1, name: 'Cartão de Crédito / Débito' },
+        { id: 2, name: 'Paypal' },
+        { id: 3, name: 'Dinheiro na entrega' }
+    ];
+
+    const handleMethodChange = (methodId: number) => {
+        setSelectedMethod(methodId);
+    };
 
     return (
         <CartContainer className={cartItems.length > 0 ? "" : "emptyCart"}>
@@ -30,10 +44,11 @@ export default function UserCart() {
                             {cartItems.map((item) => (
                                 <ProductCartCard
                                     key={item.id}
+                                    productID={item.id}
                                     imageURL={item.imageUrl}
                                     title={item.title}
                                     description={item.description}
-                                    price={item.price}
+                                    price={formatCurrency(item.price * item.quantity)}
                                     quantity={item.quantity}
                                 />
                             ))}
@@ -41,9 +56,40 @@ export default function UserCart() {
                     </div>
 
                     <PaymentInformation>
-                        <h2>Pagamento</h2>
+                        <div>
+                            <h2>Detalhes de pagamento</h2>
 
-                        <h3>Total a pagar: R$ {totalPrice}</h3>
+                            <div className="paymentMethods">
+                                <h3>Escolha o Método de Pagamento:</h3>
+                                <ul>
+                                    {paymentMethodsList.map((method) => (
+                                        <li key={method.id}>
+                                            <div>
+                                                <input
+                                                    type="radio"
+                                                    id={`paymentMethod_${method.id}`}
+                                                    name="paymentMethod"
+                                                    value={method.id}
+                                                    checked={selectedMethod === method.id}
+                                                    onChange={() => handleMethodChange(method.id)}
+                                                />
+                                                <label htmlFor={`paymentMethod_${method.id}`}>{method.name}</label>
+                                            </div>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div className="confirmOrder">
+                            <p>Total a pagar: {formatCurrency(totalPrice)}</p>
+
+                            <Button
+                                text="Confirmar pedido"
+                                border="corner"
+                                background="successColor"
+                            />
+                        </div>
                     </PaymentInformation>
                 </>
             ) : (

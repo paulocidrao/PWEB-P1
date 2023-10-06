@@ -4,6 +4,10 @@ export const ProductCartContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    button {
+        padding: 0.5rem;
+    }
 `
 
 export const ProductCartInfo = styled.div`
@@ -29,9 +33,36 @@ export const ProductCartInfo = styled.div`
     }
 
     .titleDescription {
-        max-width: 28rem;
+        max-width: 15rem;
+
+        @media screen and (max-width: 1020px) {
+        
+        }
+    }
+
+    @media screen and (max-width: 1020px) {
+        .productImage {
+            max-width: 4rem;
+            max-height: 4rem;
+            width: 90%;
+            height: 90%;
+        }
+
+        gap: 1rem;
     }
 `
 
-export const ProductCartDetails = styled.div``
+export const ProductCartDetails = styled.div`
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+
+    button {
+        padding: 0.5rem;
+    }
+
+    @media screen and (max-width: 1020px) {
+        gap: 1rem;
+    }
+`
 

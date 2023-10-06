@@ -9,6 +9,19 @@ export const BannerContainer = styled.section`
 
     display: grid;
     grid-template-columns: 1fr 1fr;
+
+    @media screen and (max-width: 700px) {
+        display: flex;
+        justify-content: center;
+
+        h2 {
+            font-size: 1.7rem !important;
+        }
+
+        img {
+            display: none;
+        }
+    }
 `
 
 export const BannerText = styled.div`

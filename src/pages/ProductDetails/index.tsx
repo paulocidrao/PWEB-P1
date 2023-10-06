@@ -5,20 +5,33 @@ import Button from "../../components/Button";
 
 import { products } from '../../data/products.json';
 
-import { FaPlus, FaMinus } from 'react-icons/fa'
+import { FaPlus, FaMinus, FaShoppingCart } from 'react-icons/fa'
 import { useState } from "react";
+import { formatCurrency } from "../../utils/formatCurrency";
+import { useCart } from "../../hooks/useCart";
+import { Product } from "../../components/ProductCard";
+
 
 export default function ProductDetails() {
-    const [productQuantity, setProductQuantity] = useState<number>(0);
+    const [productQuantity, setProductQuantity] = useState<number>(1);
+    const { addToCart } = useCart();
 
     const { productId } = useParams();
     const productIdAsNumber = parseInt(productId!, 10);
 
-    const product = products[productIdAsNumber - 1];
+    const productCart: Product = products[productIdAsNumber - 1];
 
     function changeProductQuantity(type: string) {
-        type === 'minus' && productQuantity > 0 && setProductQuantity(productQuantity - 1);
-        type === 'plus' && productQuantity < product.estoque && setProductQuantity(productQuantity + 1);
+        type === 'minus' && productQuantity > 1 && setProductQuantity(productQuantity - 1);
+        type === 'plus' && productQuantity < productCart.stock! && setProductQuantity(productQuantity + 1);
+    }
+
+    function handleAddToCart() {
+        const productToAdd = {
+            ...productCart,
+            quantity: productQuantity,
+        }
+        addToCart(productToAdd);
     }
 
     return (
@@ -26,32 +39,32 @@ export default function ProductDetails() {
             <ProductInformationContainer>
                 <ProductImageContainer>
                     <div className="mainImage">
-                        <img src={`/assets/${product.imageURL}`} alt={product.nome} />
+                        <img src={`/assets/${productCart.imageUrl}`} alt={productCart.title} />
                     </div>
                     <div className="secondaryImages">
                         <div>
-                            <img src={`/assets/${product.imageURL}`} alt={product.nome} />
+                            <img src={`/assets/${productCart.imageUrl}`} alt={productCart.title} />
                         </div>
                         <div>
-                            <img src={`/assets/${product.imageURL}`} alt={product.nome} />
+                            <img src={`/assets/${productCart.imageUrl}`} alt={productCart.title} />
                         </div>
                         <div>
-                            <img src={`/assets/${product.imageURL}`} alt={product.nome} />
+                            <img src={`/assets/${productCart.imageUrl}`} alt={productCart.title} />
                         </div>
                         <div>
-                            <img src={`/assets/${product.imageURL}`} alt={product.nome} />
+                            <img src={`/assets/${productCart.imageUrl}`} alt={productCart.title} />
                         </div>
                     </div>
                 </ProductImageContainer>
 
                 <ProductInformation>
                     <div>
-                        <h2>{product.nome}</h2>
-                        <p>{product.descricao}</p>
+                        <h2>{productCart.title}</h2>
+                        <p>{productCart.description}</p>
                     </div>
 
                     <div>
-                        <b>R$ {product.preco}</b>
+                        <b>{formatCurrency(productCart.price)}</b>
                     </div>
 
                     <div className="quantity">
@@ -66,13 +79,17 @@ export default function ProductDetails() {
                         </div>
 
                         <span>
-                            Apenas {product.estoque} unidades em estoque.
+                            Apenas {productCart.stock} unidades em estoque.
                         </span>
                     </div>
 
                     <div className="buttons">
-                        <Button text="Comprar" />
-                        <Button text="Adicionar ao carrinho" />
+                        <Button
+                            text="Adicionar ao carrinho"
+                            border="corner"
+                            icon={<FaShoppingCart size={20} />}
+                            handleFunction={handleAddToCart}
+                        />
                     </div>
 
                 </ProductInformation>

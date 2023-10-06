@@ -13,4 +13,24 @@ export const ProductsFeed = styled.main`
     grid-template-columns: repeat(4, 1fr);
     column-gap: 1.5rem;
     row-gap: 1.5rem;
+    margin: auto;
+
+    @media screen and (max-width: 1400px) {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media screen and (max-width: 1020px) {
+    display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+  }
+
+  @media screen and (max-width: 700px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `

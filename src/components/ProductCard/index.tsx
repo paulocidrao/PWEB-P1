@@ -4,12 +4,14 @@ import { CardContainer } from './styles';
 
 import { FaShoppingCart } from 'react-icons/fa';
 import { useCart } from '../../hooks/useCart';
+import { formatCurrency } from '../../utils/formatCurrency';
 
 export interface Product {
     id: number;
     title: string;
     description: string;
     price: number;
+    stock?: number;
     imageUrl: string;
 }
 
@@ -35,7 +37,7 @@ export default function ProductCard({ product }: ProductProps) {
                 <img src={`/assets/${product.imageUrl}`} />
                 <h3>{product.title}</h3>
                 <p>{product.description}</p>
-                <p><b>R$ {product.price}</b></p>
+                <p><b>{formatCurrency(product.price)}</b></p>
             </Link>
 
             <Button

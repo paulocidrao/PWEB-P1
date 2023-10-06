@@ -42,4 +42,8 @@ export const ButtonContainer = styled.button<ButtonStyleProps>`
     &:hover {
         opacity: 0.8;
     }
+
+    @media screen and (max-width: 1020px) {
+        padding: 0.5rem 0.5rem !important;
+    }
 `

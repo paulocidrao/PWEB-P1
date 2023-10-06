@@ -2,67 +2,67 @@
     "products": [
         {
             "id": 1,
-            "nome": "PlayStation 5",
-            "descricao": "Console de última geração da Sony",
-            "preco": 3499.99,
-            "estoque": 15,
-            "imageURL": "PS5.jpg"
+            "title": "PlayStation 5",
+            "description": "Console de última geração da Sony",
+            "price": 3499.99,
+            "stock": 15,
+            "imageUrl": "PS5.jpg"
         },
         {
             "id": 2,
-            "nome": "Xbox Series X",
-            "descricao": "Console de alta potência da Microsoft",
-            "preco": 3549.99,
-            "estoque": 10,
-            "imageURL": "Xbox-x.jpg"
+            "title": "Xbox Series X",
+            "description": "Console de alta potência da Microsoft",
+            "price": 3549.99,
+            "stock": 10,
+            "imageUrl": "Xbox-x.jpg"
         },
         {
             "id": 3,
-            "nome": "Nintendo Switch",
-            "descricao": "Console híbrido da Nintendo",
-            "preco": 2299.99,
-            "estoque": 20,
-            "imageURL": "Switch.jpg"
+            "title": "Nintendo Switch",
+            "description": "Console híbrido da Nintendo",
+            "price": 2299.99,
+            "stock": 20,
+            "imageUrl": "Switch.jpg"
         },
         {
             "id": 4,
-            "nome": "Xbox Series S",
-            "descricao": "Console de alta potência da Microsoft",
-            "preco": 2299.99,
-            "estoque": 20,
-            "imageURL": "Xbox-s.jpg"
+            "title": "Xbox Series S",
+            "description": "Console de alta potência da Microsoft",
+            "price": 2299.99,
+            "stock": 20,
+            "imageUrl": "Xbox-s.jpg"
         },
         {
             "id": 5,
-            "nome": "Controle Sem Fio Xbox",
-            "descricao": "Controle sem fio para o console Xbox",
-            "preco": 129.99,
-            "estoque": 30,
-            "imageURL": "Xbox-control.jpg"
+            "title": "Controle Sem Fio Xbox",
+            "description": "Controle sem fio para o console Xbox",
+            "price": 129.99,
+            "stock": 30,
+            "imageUrl": "Xbox-control.jpg"
         },
         {
             "id": 6,
-            "nome": "Jogo The Last of Us Part II",
-            "descricao": "Jogo de aventura e ação para PlayStation 5",
-            "preco": 69.99,
-            "estoque": 25,
-            "imageURL": "TLOU2.jpg"
+            "title": "Jogo The Last of Us Part II",
+            "description": "Jogo de aventura e ação para PlayStation 5",
+            "price": 69.99,
+            "stock": 25,
+            "imageUrl": "TLOU2.jpg"
         },
         {
             "id": 7,
-            "nome": "Headset Gamer HyperX Cloud II",
-            "descricao": "Headset com som surround para uma experiência imersiva",
-            "preco": 149.99,
-            "estoque": 15,
-            "imageURL": "HyperX.jpg"
+            "title": "Headset Gamer HyperX Cloud II",
+            "description": "Headset com som surround para uma experiência imersiva",
+            "price": 149.99,
+            "stock": 15,
+            "imageUrl": "HyperX.jpg"
         },
         {
             "id": 8,
-            "nome": "Mouse Gamer Logitech G Pro X",
-            "descricao": "Mouse de alta precisão para jogos",
-            "preco": 79.99,
-            "estoque": 20,
-            "imageURL": "Logitech.jpg"
+            "title": "Mouse Gamer Logitech G Pro X",
+            "description": "Mouse de alta precisão para jogos",
+            "price": 79.99,
+            "stock": 20,
+            "imageUrl": "Logitech.jpg"
         }
     ]
 }

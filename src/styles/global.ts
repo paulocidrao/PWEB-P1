@@ -26,15 +26,15 @@ export default createGlobalStyle`
         --gray-200: #ccc; 
         --gray-300: #666;
         --banner-bg: #F4F1ED;
-        --success-color: #55a630;
+        --success-color: #4BB543;
         --danger-color: #ef233c;
 
         /* Tamanhos de Fonte */
-        --title-banner: 36px;
-        --title-size: 24px;
-        --subtitle-size: 18px;
-        --paragraph-size: 16px;
-        --link-size: 14px;
+        --title-banner: 2.25rem;
+        --title-size: 1.5rem;
+        --subtitle-size: 1.125rem;
+        --paragraph-size: 1rem;
+        --link-size: 0.875rem;
     }
 
     button {
@@ -48,5 +48,22 @@ export default createGlobalStyle`
     a {
         text-decoration: none;
         color: var(--primary-color);
+    }
+
+    body {
+        @media screen and (max-width: 1400px) {
+            font-size: 90%;
+        }
+
+        @media screen and (max-width: 1020px) {
+            font-size: 85%;
+        }
+
+        @media screen and (max-width: 700px) {
+            font-size: 80%;
+        }
+        @media screen and (max-width: 500px) {
+            font-size: 70%;
+        }
     }
 `;
