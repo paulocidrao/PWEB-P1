@@ -96,6 +96,12 @@ export const ProductInformation = styled.div`
     > div {
         border-bottom: 1px solid var(--gray-100);
         padding-bottom: 2rem;
+        @media screen and (max-width: 700px){
+            display:flex;
+            align-items:center;
+            flex-direction: column;
+            padding-bottom: 0;
+        }   
     }
 
     b {
@@ -107,7 +113,9 @@ export const ProductInformation = styled.div`
         flex-direction: row;
         align-items: center;
         gap: 1rem;
-
+        @media screen and (max-width: 700px){
+            flex-direction: column;
+        }
         div {
             display: flex;
             flex-direction: row;

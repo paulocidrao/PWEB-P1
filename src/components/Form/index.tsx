@@ -51,13 +51,13 @@ function SignInForm({ onSubmit }: SignInFormProps) {
 
     return (
         <FormContainer>
-            <h1>Sign In</h1>
+            <h1>Login</h1>
             <p>Insira suas credenciais para entrar na plataforma.</p>
 
             <form onSubmit={handleSubmit((data) => onSubmit({ data, destiny: '/' }))}>
 
                 <div>
-                    <label htmlFor="">Username</label>
+                    <label htmlFor="">Nome</label>
                     <input
                         type="text"
                         placeholder="Digite seu nome de usuario"
@@ -70,13 +70,13 @@ function SignInForm({ onSubmit }: SignInFormProps) {
                                 }
                             })}
                     />
-                    {errors.username && <span className="error">{errors.username.message}</span>}
+                    {errors.username?.type === 'required' && <span className="error">{errors.username.message}</span>}
                 </div>
 
                 <div>
                     <label htmlFor="">Senha</label>
                     <input type="password" placeholder="Digite sua senha" {...register("password", { required: true })} />
-                    {errors.password && <span className="error">Este campo é obrigatório</span>}
+                    {errors.password?.type === 'required' && <span className="error">Este campo é obrigatório</span>}
                 </div>
 
                 <span>
@@ -98,16 +98,17 @@ function SignUpForm({ onSubmit }: SignInFormProps) {
         register,
         handleSubmit,
         formState: { errors },
+        watch,
     } = useForm<InputProps>();
-
+    const ConfirmPasswords =watch('password');
     return (
         <FormContainer>
-            <h1>Sign Up</h1>
+            <h1>Cadastrar-se</h1>
             <p>Preencha os campos abaixo para criar a sua conta.</p>
 
             <form onSubmit={handleSubmit((data) => onSubmit({ data, destiny: '/signIn' }))}>
                 <div>
-                    <label htmlFor="">Username</label>
+                    <label htmlFor="">Nome</label>
                     <input
                         type="text"
                         placeholder="Digite seu nome de usuario"
@@ -120,7 +121,7 @@ function SignUpForm({ onSubmit }: SignInFormProps) {
                                 }
                             })}
                     />
-                    {errors.username && <span className="error">{errors.username.message}</span>}
+                    {errors.username?.type === 'required' && <span className="error">{errors.username.message}</span>}
                 </div>
 
                 <div>
@@ -136,7 +137,7 @@ function SignUpForm({ onSubmit }: SignInFormProps) {
                             },
                         })}
                     />
-                    {errors.email && <span className="error">{errors.email.message}</span>}
+                    {errors.email?.type === 'required' && <span className="error">{errors.email.message}</span>}
                 </div>
 
                 <div>
@@ -146,7 +147,7 @@ function SignUpForm({ onSubmit }: SignInFormProps) {
                         placeholder="Digite sua senha"
                         {...register("password", { required: true })}
                     />
-                    {errors.username && <span className="error">Este campo é obrigatório</span>}
+                    {errors.username?.type === 'required' && <span className="error">Este campo é obrigatório</span>}
                 </div>
 
                 <div>
@@ -154,9 +155,10 @@ function SignUpForm({ onSubmit }: SignInFormProps) {
                     <input
                         type="password"
                         placeholder="Digite sua senha novamente"
-                        {...register("confirmPassword", { required: true })}
+                        {...register("confirmPassword", { required: true,validate:(value)=> value ===  ConfirmPasswords  })}
                     />
-                    {errors.confirmPassword && <span className="error">Este campo é obrigatório</span>}
+                    {errors.confirmPassword?.type === 'required' && <span className="error">Este campo é obrigatório</span>}
+                    {errors.confirmPassword?.type === 'validate' && <span className="error">As senhas devem ser iguais</span>}
                 </div>
 
                 <Button text="Criar conta" border="corner" />

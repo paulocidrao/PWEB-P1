@@ -60,13 +60,19 @@ export const PaymentInformation = styled.section`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    @media screen and (max-width: 700px){
+            justify-content:start;
+            height:21rem;
+        }
 
     .paymentMethods {
         margin-top: 1rem;
         display: flex;
         flex-direction: column;
         gap: 1rem;
-
+        @media screen and (max-width: 700px){
+            margin-bottom: 2rem;
+        }
         ul {
             list-style: none;
             

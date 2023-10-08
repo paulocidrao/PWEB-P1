@@ -60,10 +60,10 @@ export default createGlobalStyle`
         }
 
         @media screen and (max-width: 700px) {
-            font-size: 80%;
+            font-size: 85%;
         }
         @media screen and (max-width: 500px) {
-            font-size: 70%;
+            font-size: 95%;
         }
     }
 `;
