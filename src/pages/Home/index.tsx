@@ -10,6 +10,7 @@ interface products {
   description: string;
   price: number;
   quanity: number;
+  photo_url: string;
 }
 
 export default function Home() {
@@ -40,6 +41,7 @@ export default function Home() {
                 title: product.title,
                 description: product.description,
                 price: product.price,
+                photo: product.photo_url,
               }}
             />
           ))

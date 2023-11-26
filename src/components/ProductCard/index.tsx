@@ -11,15 +11,14 @@ export interface Product {
   title: string;
   description: string;
   price: number;
-  //   stock?: number;
-  //   imageUrl: string;
+  quantity?: number;
+  photo: string;
 }
 
 interface ProductProps {
   product: Product;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function ProductCard({ product }: ProductProps) {
   const { addToCart, cartItems } = useCart();
 
@@ -34,7 +33,7 @@ export default function ProductCard({ product }: ProductProps) {
   return (
     <CardContainer>
       <Link to={`/productDetails/${product.id}`}>
-        {/* <img src={`/assets/${product.imageUrl}`} /> */}
+        <img src={`/assets/${product.photo}`} />
         <h3>{product.title}</h3>
         <p>{product.description}</p>
         <p>
