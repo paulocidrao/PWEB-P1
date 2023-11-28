@@ -3,6 +3,7 @@ import { createContext, ReactNode, useState } from "react";
 import { Product } from "../components/ProductCard";
 
 interface CartItem extends Product {
+  imageUrl: string;
   quantity: number;
 }
 
