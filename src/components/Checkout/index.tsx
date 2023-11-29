@@ -1,54 +1,57 @@
+import { useCart } from "../../hooks/useCart";
+import { formatCurrency } from "../../utils/formatCurrency";
+import ProductCartCard from "../ProductCartCard";
 import {
   Cancelar,
   Concluir,
   Container,
-  // ProductCartInfo,
+  ContentContainer,
   Tittle,
+  Total,
 } from "./styles";
 
-interface ProductCartCardProps {
-  imageURL: string;
-  title: string;
-  description: string;
+interface ICloseCheckout {
   showCheckOut: boolean;
-  CloseCheckout: () => void;
+  CloseCheckOut: () => void;
 }
-export const Checkout = ({
-  cartItems,
-  showCheckOut,
-  CloseCheckout,
-}: {
-  cartItems: ProductCartCardProps[];
-  showCheckOut: boolean;
-  CloseCheckout: () => void;
-}) => {
+
+export const Checkout = ({ CloseCheckOut, showCheckOut }: ICloseCheckout) => {
+  const { cartItems } = useCart();
+
+  const totalPrice = cartItems.reduce((acc, value) => {
+    return acc + value.price * value.quantity;
+  }, 0);
   return (
     <>
       {showCheckOut && (
         <Container>
-          <Cancelar onClick={CloseCheckout}>X</Cancelar>
+          <Cancelar onClick={CloseCheckOut}>X</Cancelar>
           <Tittle>Checkout</Tittle>
-          // Checkout.jsx // ...
-          {cartItems.map((item, index) => (
-            <div key={index}>
-              <p>Image URL: {item.imageURL}</p>
-              <p>Title: {item.title}</p>
-              <p>Description: {item.description}</p>
-              {/* Adicione mais propriedades conforme necessário */}
-            </div>
-          ))}
-          // ...
-          {/* <ProductCartInfo>
-            <div className="productImage">
-              <img src={`/assets/${imageURL}`} alt={title} />
-            </div>
-
-            <div className="titleDescription">
-              <h2>{title}</h2>
-              <p>{description}</p>
-            </div>
-          </ProductCartInfo> */}
-          <Concluir>Confirmar compra</Concluir>
+          <ContentContainer>
+            {cartItems.length > 0 ? (
+              <>
+                {cartItems.map((item) => (
+                  <ProductCartCard
+                    key={item.id}
+                    productID={item.id}
+                    imageURL={item.imageUrl}
+                    title={item.title}
+                    description={item.description}
+                    price={formatCurrency(item.price * item.quantity)}
+                    quantity={item.quantity}
+                  />
+                ))}
+              </>
+            ) : (
+              <p>Carrinho Vazio!</p>
+            )}
+          </ContentContainer>
+          {cartItems.length > 0 && (
+            <>
+              <Concluir>Confirmar compra</Concluir>
+              <Total>Total a pagar: {formatCurrency(totalPrice)}</Total>
+            </>
+          )}
         </Container>
       )}
     </>

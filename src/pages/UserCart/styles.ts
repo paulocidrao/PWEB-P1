@@ -103,3 +103,15 @@ export const PaymentInformation = styled.section`
 `
 
 export const DeliveryInformation = styled.section``
+
+export const ConfirmarPedido = styled.button`
+     background: var(--success-color);
+     color: #fff;
+     border:1px solid var(--gray-200);
+     font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    font-size: var(--paragraph-size);
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    text-align:center;
+`;
