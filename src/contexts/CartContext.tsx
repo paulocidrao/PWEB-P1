@@ -1,18 +1,25 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 
 import { Product } from "../components/ProductCard";
+import { api } from "../lib/axios";
 
-interface CartItem extends Product {
-  imageUrl: string;
-  quantity: number;
+export interface CartItem extends Product {
+  id: string,
+  product: {
+    id: string,
+    title: string,
+    description: string,
+    price: number,
+  },
+  quantity: number
 }
 
 interface CartContextType {
-  cartItems: CartItem[];
-  cartQuantity: number;
-  cartItemsTotal: number;
-  addToCart: (product: CartItem) => void;
-  removeCartItem: (cartItem: number) => void;
+  cartItems: CartItem[] | undefined;
+  cartQuantity: number | undefined;
+  cartItemsTotal: number | undefined;
+  addToCart: (userId: string, productId: string, quantity: number) => void;
+  removeCartItem: (cartItem: string) => void;
   cleanCart: () => void;
 }
 
@@ -23,52 +30,62 @@ interface CartContextProviderProps {
 export const CartContext = createContext({} as CartContextType);
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartItems, setCartItems] = useState<CartItem[] | undefined>([]);
 
-  const cartQuantity = cartItems.length;
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get("user/c8f1fcec-b3e0-4e31-9fd4-54d041128466");
 
-  const cartItemsTotal = cartItems.reduce((total, cartItem) => {
+        if (response) {
+          setCartItems(response.data.Cart[0].cartProducts)
+          console.log(response.data.Cart[0].cartProducts)
+        }
+      } catch (error) {
+        console.log("Ocorreu um erro", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const cartQuantity = cartItems?.length;
+
+  const cartItemsTotal = cartItems?.reduce((total, cartItem) => {
     return total + cartItem.price * cartItem.quantity;
   }, 0);
 
-  function addToCart(product: CartItem) {
-    const productAlreadyExistsInCart = cartItems.findIndex(
-      (cartItem) => cartItem.id === product.id
-    );
+  async function addToCart(userId: string, productId: string, quantity: number) {
+    try {
+      const response = await api.post("/cart", {
+        userId,
+        productId,
+        quantity
+      });
+      console.log("Response:", response.data);
 
-    let newCart;
-
-    if (productAlreadyExistsInCart < 0) {
-      // Adiciona o produto ao carrinho
-      newCart = [...cartItems, { ...product }];
-    } else {
-      // Atualiza a quantidade se o produto já existe no carrinho
-      newCart = cartItems.map((item) =>
-        item.id === product.id
-          ? { ...item, quantity: item.quantity + product.quantity }
-          : item
-      );
-    }
-
-    setCartItems(newCart);
-  }
-
-  function removeCartItem(cartItemId: number) {
-    const coffeeExistsInCart = cartItems.findIndex(
-      (cartItem) => cartItem.id === cartItemId
-    );
-
-    if (coffeeExistsInCart >= 0) {
-      const newCart = [
-        ...cartItems.slice(0, coffeeExistsInCart),
-        ...cartItems.slice(coffeeExistsInCart + 1),
-      ];
-      setCartItems(newCart);
+      const updateCartItems = await api.get("user/c8f1fcec-b3e0-4e31-9fd4-54d041128466");
+      setCartItems(updateCartItems.data.Cart[0].cartProducts);
+    } catch (error) {
+      console.log("Ocorreu um erro", error);
     }
   }
 
-  function cleanCart() {
-    setCartItems([]);
+  async function removeCartItem(cartItemId: string) {
+    try {
+      const response = await api.delete(`/cart/product/${cartItemId}`);
+      console.log("Response:", response.data);
+      const updateCartItems = await api.get("user/c8f1fcec-b3e0-4e31-9fd4-54d041128466");
+      setCartItems(updateCartItems.data.Cart[0].cartProducts);
+    } catch (error) {
+      console.log("Ocorreu um erro", error);
+    }
+  }
+
+  async function cleanCart() {
+    await api.delete('cart/product/deleteAll/c8f1fcec-b3e0-4e31-9fd4-54d041128466');
+
+    const updateCartItems = await api.get("user/c8f1fcec-b3e0-4e31-9fd4-54d041128466");
+    setCartItems(updateCartItems.data.Cart[0].cartProducts);
   }
 
   return (

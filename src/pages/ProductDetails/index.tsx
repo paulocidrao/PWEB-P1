@@ -8,69 +8,72 @@ import {
 } from "./styles";
 
 import Button from "../../components/Button";
-import { Product } from "../../components/ProductCard";
-import { products } from "../../data/products.json";
 
 import { FaPlus, FaMinus, FaShoppingCart } from "react-icons/fa";
 import { useState } from "react";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { useCart } from "../../hooks/useCart";
+import { useProducts } from "../../hooks/useProducts";
+import { Products } from "../../contexts/ProductsContext";
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function ProductDetails() {
+  const { data } = useProducts();
   const [productQuantity, setProductQuantity] = useState<number>(1);
   const { addToCart } = useCart();
 
   const { productId } = useParams();
-  const productIdAsNumber = parseInt(productId!, 10);
-  const productCart: Product = products[productIdAsNumber - 1];
+  const productCart: Products | undefined = data!.find((product) => product.id === productId);
 
   function changeProductQuantity(type: string) {
     type === "minus" &&
       productQuantity > 1 &&
       setProductQuantity(productQuantity - 1);
     type === "plus" &&
-      productQuantity < productCart.quantity! &&
+      productQuantity < productCart!.stock[0].quantity! &&
       setProductQuantity(productQuantity + 1);
   }
 
+  const notify = () => toast.success('Produto adicionado no seu carrinho.');
+
   function handleAddToCart() {
     const productToAdd = {
-      ...productCart,
-      quantity: productQuantity,
+      userId: "c8f1fcec-b3e0-4e31-9fd4-54d041128466",
+      productId: productCart?.id,
+      quantity: productQuantity
     };
-    addToCart(productToAdd);
+    addToCart(productToAdd.userId, productToAdd.productId!, productToAdd.quantity);
+    notify();
   }
+
 
   return (
     <ProductDetailsContainer>
       <ProductInformationContainer>
         <ProductImageContainer>
           <div className="mainImage">
-            <img src={`/assets/${productCart.photo}`} alt={productCart.title} />
+            <img src={productCart!.photos[0].photo_url} alt={productCart!.title} />
           </div>
           <div className="secondaryImages">
             <div>
               <img
-                src={`/assets/${productCart.photo}`}
-                alt={productCart.title}
+                src={productCart!.photos[0].photo_url}
+                alt={productCart!.title}
               />
             </div>
             <div>
               <img
-                src={`/assets/${productCart.photo}`}
-                alt={productCart.title}
+                src={productCart!.photos[0].photo_url} alt={productCart!.title}
               />
             </div>
             <div>
               <img
-                src={`/assets/${productCart.photo}`}
-                alt={productCart.title}
+                src={productCart!.photos[0].photo_url} alt={productCart!.title}
               />
             </div>
             <div>
               <img
-                src={`/assets/${productCart.photo}`}
-                alt={productCart.title}
+                src={productCart!.photos[0].photo_url} alt={productCart!.title}
               />
             </div>
           </div>
@@ -78,12 +81,12 @@ export default function ProductDetails() {
 
         <ProductInformation>
           <div>
-            <h2>{productCart.title}</h2>
-            <p>{productCart.description}</p>
+            <h2>{productCart!.title}</h2>
+            <p>{productCart!.description}</p>
           </div>
 
           <div>
-            <b>{formatCurrency(productCart.price)}</b>
+            <b>{formatCurrency(productCart!.price)}</b>
           </div>
 
           <div className="quantity">
@@ -97,7 +100,7 @@ export default function ProductDetails() {
               </button>
             </div>
 
-            <span>Apenas {productCart.quantity} unidades em estoque.</span>
+            <span>Apenas {productCart?.stock[0].quantity} unidades em estoque.</span>
           </div>
 
           <div className="buttons">
@@ -107,6 +110,7 @@ export default function ProductDetails() {
               icon={<FaShoppingCart size={20} />}
               handleFunction={handleAddToCart}
             />
+            <Toaster position="top-right" />
           </div>
         </ProductInformation>
       </ProductInformationContainer>

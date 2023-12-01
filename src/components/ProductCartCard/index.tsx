@@ -1,4 +1,6 @@
 import { useCart } from "../../hooks/useCart";
+import { useProducts } from "../../hooks/useProducts";
+import { formatCurrency } from "../../utils/formatCurrency";
 import Button from "../Button";
 import {
   ProductCartContainer,
@@ -8,41 +10,43 @@ import {
 
 import { FaTrash } from "react-icons/fa";
 
-interface ProductCartCardProps {
-  productID: number;
-  imageURL: string;
-  title: string;
-  description: string;
-  price: string;
-  quantity: number;
+interface CartProduct {
+  productId: string,
+  product: {
+    id: string,
+    title: string,
+    description: string,
+    price: number,
+  },
+  quantity: number
 }
 
 export default function ProductCartCard({
-  productID,
-  imageURL,
-  title,
-  description,
-  price,
-  quantity,
-}: ProductCartCardProps) {
+  productId,
+  product: { id },
+  quantity
+}: CartProduct) {
   const { removeCartItem } = useCart();
+  const { data } = useProducts();
+
+  const productInfo = data?.find(product => product.id === id)
 
   return (
     <ProductCartContainer>
       <ProductCartInfo>
         <div className="productImage">
-          <img src={`/assets/${imageURL}`} alt={title} />
+          <img src={productInfo?.photos[0].photo_url} alt={productInfo?.title} />
         </div>
 
         <div className="titleDescription">
-          <h2>{title}</h2>
-          <p>{description}</p>
+          <h2>{productInfo?.title}</h2>
+          <p>{productInfo?.description}</p>
         </div>
       </ProductCartInfo>
 
       <ProductCartDetails>
         <div>
-          <h3>{price}</h3>
+          <h3>{formatCurrency(productInfo?.price)} <span>(cada)</span></h3>
           <span>Quantidade: {quantity}</span>
         </div>
 
@@ -50,7 +54,7 @@ export default function ProductCartCard({
           background="none"
           border="corner"
           icon={<FaTrash size={20} />}
-          handleFunction={() => removeCartItem(productID)}
+          handleFunction={() => removeCartItem(productId)}
         />
       </ProductCartDetails>
     </ProductCartContainer>

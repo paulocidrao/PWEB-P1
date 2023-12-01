@@ -6,6 +6,8 @@ import { FaShoppingCart } from "react-icons/fa";
 import { useCart } from "../../hooks/useCart";
 import { formatCurrency } from "../../utils/formatCurrency";
 
+import toast, { Toaster } from 'react-hot-toast';
+
 export interface Product {
   id: string;
   title: string;
@@ -22,18 +24,18 @@ interface ProductProps {
 export default function ProductCard({ product }: ProductProps) {
   const { addToCart, cartItems } = useCart();
 
+  const notify = () => toast.success('Produto adicionado no seu carrinho.');
+
   function handleAddToCart() {
-    const productToAdd = {
-      ...product,
-      quantity: 1,
-    };
-    addToCart(productToAdd);
+    addToCart("c8f1fcec-b3e0-4e31-9fd4-54d041128466", product.id!, 1);
+    notify();
   }
+
 
   return (
     <CardContainer>
       <Link to={`/productDetails/${product.id}`}>
-        <img src={`/assets/${product.photo}`} />
+        <img src={product.photo} />
         <h3>{product.title}</h3>
         <p>{product.description}</p>
         <p>
@@ -43,19 +45,20 @@ export default function ProductCard({ product }: ProductProps) {
 
       <Button
         text={
-          cartItems.some((item) => item.id === product.id)
+          cartItems?.some((item) => item.id === product.id)
             ? "Adicionado"
             : "Adicionar ao carrinho"
         }
         border="corner"
         icon={<FaShoppingCart size={20} />}
         background={
-          cartItems.some((item) => item.id === product.id)
+          cartItems?.some((item) => item.id === product.id)
             ? "successColor"
             : "primaryColor"
         }
         handleFunction={handleAddToCart}
       />
+      <Toaster position="top-right" />
     </CardContainer>
   );
 }

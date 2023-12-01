@@ -1,31 +1,11 @@
-import { useEffect, useState } from "react";
 import ProductCard from "../../components/ProductCard";
 import { useSearch } from "../../hooks/useSearch";
 import { HomeContainer, ProductsFeed } from "../Home/styles";
 import { SearchNotFound } from "./styles";
-import { api } from "../../lib/axios";
+import { useProducts } from "../../hooks/useProducts";
 
-interface products {
-  id: string;
-  title: string;
-  description: string;
-  price: number;
-  quanity: number;
-  photo_url: string;
-}
 export default function Search() {
-  const [data, setData] = useState<products[] | null>(null);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await api.get("/products");
-        setData(response.data);
-      } catch (error) {
-        console.log("Ocorreu um erro", error);
-      }
-    };
-    fetchData();
-  }, []);
+  const { data } = useProducts();
   const { searchString } = useSearch();
 
   const productsArray = data || [];
@@ -49,7 +29,7 @@ export default function Search() {
                 title: product.title,
                 description: product.description,
                 price: product.price,
-                photo_url: product.photo_url,
+                photo: product.photos[0].photo_url
               }}
             />
           ))}

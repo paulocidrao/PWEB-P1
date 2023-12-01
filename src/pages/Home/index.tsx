@@ -1,33 +1,11 @@
 import ProductCard from "../../components/ProductCard";
-// import productsData from "../../data/products.json";
 import { HomeContainer, ProductsFeed } from "./styles";
 import Banner from "../../components/Banner";
-import { useState, useEffect } from "react";
-import { api } from "../../lib/axios";
-interface products {
-  id: string;
-  title: string;
-  description: string;
-  price: number;
-  quanity: number;
-  photo_url: string;
-}
+
+import { useProducts } from '../../hooks/useProducts'
 
 export default function Home() {
-  //   const productsArray = productsData.products;
-  const [data, setData] = useState<products[] | null>(null);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await api.get("/products");
-        setData(response.data);
-      } catch (error) {
-        console.log("Ocorreu um erro", error);
-      }
-    };
-    fetchData();
-  }, []);
-
+  const { data } = useProducts();
   return (
     <HomeContainer>
       <Banner />
@@ -41,7 +19,7 @@ export default function Home() {
                 title: product.title,
                 description: product.description,
                 price: product.price,
-                photo: product.photo_url,
+                photo: product.photos[0].photo_url
               }}
             />
           ))

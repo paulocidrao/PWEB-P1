@@ -10,6 +10,7 @@ import UserCart from "./pages/UserCart";
 import { CartContextProvider } from "./contexts/CartContext";
 import { SearchContextProvider } from "./contexts/SearchContext";
 import Search from "./pages/Search";
+import { ProductsContextProvider } from "./contexts/ProductsContext";
 
 // Funcao para nao renderizar o header nestas rotas
 function HeaderWithCondition() {
@@ -28,23 +29,26 @@ function App() {
     <>
       <GlobalStyles />
       <BrowserRouter>
-        <SearchContextProvider>
-          <CartContextProvider>
-            <HeaderWithCondition />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/signIn" element={<Login />} />
-              <Route path="/signUp" element={<SignUp />} />
-              <Route path="/resetPassword" element={<ResetPassword />} />
-              <Route
-                path={`/productDetails/:productId`}
-                element={<ProductDetails />}
-              />
-              <Route path={`/userCart/`} element={<UserCart />} />
-              <Route path={`/search/:searchString`} element={<Search />} />
-            </Routes>
-          </CartContextProvider>
-        </SearchContextProvider>
+        <ProductsContextProvider>
+
+          <SearchContextProvider>
+            <CartContextProvider>
+              <HeaderWithCondition />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/signIn" element={<Login />} />
+                <Route path="/signUp" element={<SignUp />} />
+                <Route path="/resetPassword" element={<ResetPassword />} />
+                <Route
+                  path={`/productDetails/:productId`}
+                  element={<ProductDetails />}
+                />
+                <Route path={`/userCart/`} element={<UserCart />} />
+                <Route path={`/search/:searchString`} element={<Search />} />
+              </Routes>
+            </CartContextProvider>
+          </SearchContextProvider>
+        </ProductsContextProvider>
       </BrowserRouter>
     </>
   );
