@@ -9,7 +9,7 @@ interface Iuser {
   username: string;
   email: string;
   password: string;
-  confirmPassword?: string;
+  passwordConfirmation: string;
 }
 
 export default function SignUp() {
@@ -18,19 +18,21 @@ export default function SignUp() {
     username: "",
     email: "",
     password: "",
+    passwordConfirmation: "",
   });
 
   const onSubmit: SubmitHandler<Iuser> = async () => {
     try {
-      await api.post("/login", user, {
+      await api.post("/user", user, {
         headers: { "Content-Type": "application/json; charset=UTF-8" },
       });
       setUser({
         username: "",
         email: "",
         password: "",
+        passwordConfirmation: "",
       });
-      history.go(-1);
+      history.go(-2);
     } catch (error) {
       setApiError("Não foi possivel realizar o seu cadastro!");
     }
@@ -42,7 +44,7 @@ export default function SignUp() {
     handleSubmit,
     watch,
   } = useForm<Iuser>();
-  const ConfirmPasswords = watch("password");
+  const ConfirmPassword = watch("password");
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUser({
       ...user,
@@ -72,7 +74,7 @@ export default function SignUp() {
               })}
               onChange={handleChange}
               value={user.username}
-              name="nome"
+              name="username"
             />
             {errors.username?.type === "required" && (
               <span className="error">{errors.username.message}</span>
@@ -106,6 +108,9 @@ export default function SignUp() {
               type="password"
               placeholder="Digite sua senha"
               {...register("password", { required: true })}
+              onChange={handleChange}
+              value={user.password}
+              name="password"
             />
             {errors.username?.type === "required" && (
               <span className="error">Este campo é obrigatório</span>
@@ -113,26 +118,25 @@ export default function SignUp() {
           </div>
 
           <div>
-            <label htmlFor="">Digite a senha novamente</label>
+            <label htmlFor="confirmpassword">Digite a senha novamente</label>
             <input
               type="password"
               placeholder="Digite sua senha novamente"
-              {...register("confirmPassword", {
+              {...register("passwordConfirmation", {
                 required: true,
-                validate: (value) => value === ConfirmPasswords,
+                validate: (value) => value === ConfirmPassword,
               })}
               onChange={handleChange}
-              value={user.password}
-              name="senha"
+              value={user.passwordConfirmation}
+              name="passwordConfirmation"
             />
-            {errors.confirmPassword?.type === "required" && (
+            {errors.passwordConfirmation?.type === "required" && (
               <span className="error">Este campo é obrigatório</span>
             )}
-            {errors.confirmPassword?.type === "validate" && (
+            {errors.passwordConfirmation?.type === "validate" && (
               <span className="error">As senhas devem ser iguais</span>
             )}
           </div>
-
           <CriarConta>Criar Conta</CriarConta>
           <span>
             Já tem uma conta? <Link to="/signIn">Entrar</Link>.

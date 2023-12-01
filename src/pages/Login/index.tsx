@@ -5,26 +5,29 @@ import { useState } from "react";
 import { ErrorAPi, FormPageContainer, Logar } from "./styles";
 
 interface ILogin {
-  username: string;
+  email: string;
   password: string;
 }
 
 export default function Login() {
   const [apiError, setApiError] = useState<string>("");
   const [userLogin, setUserLogin] = useState<ILogin>({
-    username: "",
+    email: "",
     password: "",
   });
 
   const onSubmit: SubmitHandler<ILogin> = async () => {
     try {
-      await api.post("/login", userLogin, {
-        headers: { "Content-Type": "application/json; charset=UTF-8" },
+      const response = await api.post("/login", userLogin, {
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+        },
       });
       setUserLogin({
-        username: "",
+        email: "",
         password: "",
       });
+      localStorage.setItem("token", response.data.token);
       history.go(-1);
     } catch (error) {
       setApiError("Seus dados estão invalidos");
@@ -37,6 +40,13 @@ export default function Login() {
     handleSubmit,
   } = useForm<ILogin>();
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserLogin({
+      ...userLogin,
+      [e.target.name]: e.target.value.toLowerCase().trim(),
+    });
+  };
+
   return (
     <>
       <FormPageContainer>
@@ -45,35 +55,37 @@ export default function Login() {
           <p>Insira suas credenciais para entrar na plataforma.</p>
 
           <div>
-            <label htmlFor="username">Nome</label>
+            <label htmlFor="">Email</label>
             <input
               type="text"
-              placeholder="Digite seu nome de usuário"
-              {...register("username", {
+              placeholder="Digite seu email"
+              {...register("email", {
                 required: "Este campo é obrigatório",
                 pattern: {
-                  value: /^[a-zA-Z0-9_-]+$/i,
-                  message:
-                    "Nome de usuário inválido. Use letras, números, underscores (_) e hífens (-).",
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                  message: "Endereço de e-mail inválido",
                 },
               })}
+              onChange={handleChange}
+              value={userLogin.email}
+              name="email"
             />
-            {errors.username?.message && (
-              <span className="error">{errors.username.message}</span>
+            {errors.email?.type === "required" && (
+              <span className="error">{errors.email.message}</span>
             )}
           </div>
 
           <div>
-            <label htmlFor="password">Senha</label>
+            <label htmlFor="">Senha</label>
             <input
               type="password"
               placeholder="Digite sua senha"
-              {...register("password", {
-                required: "Este campo é obrigatório",
-              })}
+              {...register("password", { required: true })}
+              onChange={handleChange}
+              value={userLogin.password}
             />
-            {errors.password?.message && (
-              <span className="error">{errors.password.message}</span>
+            {errors.password?.type === "required" && (
+              <span className="error">Este campo é obrigatório</span>
             )}
           </div>
 
